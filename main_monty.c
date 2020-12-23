@@ -1,4 +1,5 @@
 #include "monty.h"
+file_t file;
 
 /**
  * main - gets the file pointer and decompose its strings to match commands
@@ -21,14 +22,14 @@ int main(int argc, char **argv)
 		global_free();
 		exit(EXIT_FAILURE);
 	}
-	file.fp = open(argv[1], O_RDONLY);
+	file.fp = fopen(argv[1], "r"); 
 	if (!file.fp)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		global_free();
 		exit(EXIT_FAILURE);
 	}
-	while (getline(&file.buffer, &file.buffer_size, &file.fp) != EOF)
+	while (getline(&file.buffer, &file.buffer_size, file.fp) != EOF)
 	{
 		cmd = strtok(file.buffer, " \n\t");
 		if (cmd[0] == '#')
