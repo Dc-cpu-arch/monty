@@ -6,7 +6,7 @@ file_t file;
  */
 void global_free(void)
 {
-	stack_t *current = file.head, temp = NULL;
+	stack_t *current = file.head, *temp = NULL;
 
 	if (file.buffer)
 		free(file.buffer);
@@ -26,16 +26,16 @@ void global_free(void)
  * 
  * Return: void
  */
-void (*code(char*opcode))(stack_t *stack, unsigned int line_number)
+void (*code(char *opcode))(stack_t **stack, unsigned int line_number)
 {
 	unsigned int i = 0;
 
 	instruction_t commands[] = {
-		{"push", push_cmd},
-		{"pall", pall_cmd},
-		{"pint", pint_cmd},
-		{"pop", pop_cmd},
-		{"swap", swap_cmd},
+	//	{"push", push_cmd},
+	//	{"pall", pall_cmd},
+	//	{"pint", pint_cmd},
+	//	{"pop", pop_cmd},
+	//	{"swap", swap_cmd},
 		{"nop", nop_cmd},
 		{NULL, NULL}
 	};
