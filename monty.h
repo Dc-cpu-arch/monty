@@ -4,9 +4,10 @@
 #include <stdlib.h>   /* malloc and frees handling */
 #include <stdio.h>   /* file manipulation and prints */
 #include <string.h> /* string compares and tokenization */
-#include <sys/types.h> /* open and close files*/
-#include <sys/stat.h> /* open and close files */
-#include <fcntl.h> /* open and close files */
+//#include <sys/types.h> /* open and close files*/
+//#include <sys/stat.h> /* open and close files */
+//#include <fcntl.h> /* open and close files */
+#include <ctype.h> /* test the input with isdigit */
 
 /* STRUCTURES */
 
@@ -69,6 +70,8 @@ typedef struct file_var
 
 void (*code(char *opcode))(stack_t **stack, unsigned int line_number);
 void nop_cmd(stack_t **head, unsigned int line_number);
+void push_cmd(stack_t **head, unsigned int line_number);
+void pall_cmd(stack_t **head, unsigned int line_number);
 
 /* MEMORY MANAGEMENT */
 

@@ -11,7 +11,7 @@ void global_free(void)
 	if (file.buffer)
 		free(file.buffer);
 	if (file.fp)
-		close(file.fp);
+		fclose(file.fp);
 	while (current)
 	{
 		temp = current;
@@ -23,7 +23,7 @@ void global_free(void)
 /**
  * code - fetches a function for a command request
  * @opcode: operation code [command] from tokenized buffer
- * 
+ *
  * Return: void
  */
 void (*code(char *opcode))(stack_t **stack, unsigned int line_number)
@@ -31,8 +31,8 @@ void (*code(char *opcode))(stack_t **stack, unsigned int line_number)
 	unsigned int i = 0;
 
 	instruction_t commands[] = {
-	//	{"push", push_cmd},
-	//	{"pall", pall_cmd},
+		{"push", push_cmd},
+		{"pall", pall_cmd},
 	//	{"pint", pint_cmd},
 	//	{"pop", pop_cmd},
 	//	{"swap", swap_cmd},

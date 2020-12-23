@@ -1,4 +1,5 @@
 #include "monty.h"
+
 file_t file;
 
 /**
@@ -22,7 +23,7 @@ int main(int argc, char **argv)
 		global_free();
 		exit(EXIT_FAILURE);
 	}
-	file.fp = fopen(argv[1], "r"); 
+	file.fp = fopen(argv[1], "r");
 	if (!file.fp)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
