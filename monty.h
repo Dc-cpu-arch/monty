@@ -58,7 +58,7 @@ typedef struct instruction_s
 typedef struct file_var
 {
 	FILE *fp; /* NEEDS TO BE CLOSE */
-	size buffer_size;
+	size_t buffer_size;
 	char *buffer; /* NEEDS TO BE FREE */
 	unsigned int line_number;
 	stack_t *head; /* NEEDS TO BE FREE */
@@ -68,6 +68,7 @@ typedef struct file_var
 /* PROTOTYPES FOR ARMAGEDON */
 
 void (*code(char *opcode))(stack_t **stack, unsigned int line_number);
+void nop_cmd(stack_t **head, unsigned int line_number);
 
 /* MEMORY MANAGEMENT */
 
