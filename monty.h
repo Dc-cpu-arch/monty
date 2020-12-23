@@ -4,6 +4,9 @@
 #include <stdlib.h>   /* malloc and frees handling */
 #include <stdio.h>   /* file manipulation and prints */
 #include <string.h> /* string compares and tokenization */
+#include <sys/types.h> /* open and close files*/
+#include <sys/stat.h> /* open and close files */
+#include <fcntl.h> /* open and close files */
 
 /* STRUCTURES */
 
@@ -54,11 +57,11 @@ typedef struct instruction_s
  */
 typedef struct file_var
 {
-	FILE *fp;
+	FILE *fp; /* NEEDS TO BE CLOSE */
 	size buffer_size;
-	char *buffer;
+	char *buffer; /* NEEDS TO BE FREE */
 	unsigned int line_number;
-	stack_t *head;
+	stack_t *head; /* NEEDS TO BE FREE */
 	instruction_t *code;
 } file_t;
 
@@ -66,4 +69,8 @@ typedef struct file_var
 
 void (*code(char *opcode))(stack_t **stack, unsigned int line_number);
 
-#endif i/* MONTY_INC_H */
+/* MEMORY MANAGEMENT */
+
+void global_free(void);
+
+#endif /* MONTY_INC_H */
