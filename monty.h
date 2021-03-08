@@ -1,15 +1,12 @@
-#ifndef MONTY_INC_H
-#define MONTY_INC_H
+#ifndef _FILE_H_
+#define _FILE_H_
 
-#include <stdlib.h>   /* malloc and frees handling */
-#include <stdio.h>   /* file manipulation and prints */
-#include <string.h> /* string compares and tokenization */
-//#include <sys/types.h> /* open and close files*/
-//#include <sys/stat.h> /* open and close files */
-//#include <fcntl.h> /* open and close files */
-#include <ctype.h> /* test the input with isdigit */
-
-/* STRUCTURES */
+/*C standard libraries*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stddef.h>
+#include <string.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -41,40 +38,88 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/* GLOBAL VARIABLE [FILE STRUCTURE] */
+/*Call the function for the command opcode*/
+void get_opcode(stack_t **head, char *monty_command, unsigned int line_number);
+
+/*Check if is a integer and convert it*/
+int check_integer(stack_t **head, char *value, unsigned int line_number);
+
+/*Add a node into the top of the stack*/
+void push_stack(stack_t **stack, unsigned int line_number);
+
+/*Prints all the stack data*/
+void pall_stack(stack_t **stack, unsigned int line_number);
+
+/* Prints the top of the stack*/
+void pint_stack(stack_t **stack, unsigned int line_number);
+
+/*Remove the top node of the stack*/
+void pop_stack(stack_t **stack, unsigned int line_number);
+
+/*Swaps the top two data value on the stack*/
+void swap_stack(stack_t **stack, unsigned int line_number);
+
+/*Swaps the top two data value on the stack*/
+void add_stack(stack_t **stack, unsigned int line_number);
+
+/*Calculate the Lenght of the stack*/
+size_t len_stack(stack_t *head);
+
+/*Subtracts the top two data value on the stack*/
+void sub_stack(stack_t **stack, unsigned int line_number);
+
+/*Multiply the top two data value on the stack*/
+void mul_stack(stack_t **stack, unsigned int line_number);
+
+/*Divide the top two data value on the stack*/
+void div_stack(stack_t **stack, unsigned int line_number);
+
+/*Computes the rest of the division of top two data value on stack*/
+void mod_stack(stack_t **stack, unsigned int line_number);
+
+/*Function that frees a double linked list (stack)*/
+void free_stack(stack_t **head);
+
+/*Function that frees all when a error occurs*/
+void free_all(stack_t **head, char *buffer, FILE *fd);
+
+/*Prints the char at the top of the stack*/
+void pchar_stack(stack_t **stack, unsigned int line_number);
+
+/*Prints the string starting at the top of the stack*/
+void pstr_stack(stack_t **stack, unsigned int line_number);
+
+/*Rotates the stack to the top*/
+void rotl_stack(stack_t **stack, unsigned int line_number);
+
+/*Rotates the stack to the bottom*/
+void rotr_stack(stack_t **stack, unsigned int line_number);
+
+/*Add a node at the end*/
+void queue_format(stack_t **stack, unsigned int line_number);
+
+/*Function to switch from stack to queue*/
+void format_queue(stack_t **stack, unsigned int line_number);
+
+/*Function to switch from queue to stack*/
+void format_stack(stack_t **stack, unsigned int line_number);
 
 /**
- * struct file_var - structure for file handling
- * @fp: file pointer to getline
- * @buffer_size: file line(s) size
- * @buffer: current line string
- * @line_number: current read line
- * @head: head of the stack (DLL)
- * @code: tokenized string with the commands
+ * struct variable_s - Variables to free the stack when a error happen.
+ * @buffer: Buffer save with the get.
+ * @fd: FILE pointer to close the file open.
  *
- * Description: structure to handle the FILE variables for getline
- * and some other related variables usefull to decompose the
- * file's lines
+ * Description: Variables need to free the stack when a error happens.
  */
-typedef struct file_var
+typedef struct variable_s
 {
-	FILE *fp; /* NEEDS TO BE CLOSE */
-	size_t buffer_size;
-	char *buffer; /* NEEDS TO BE FREE */
-	unsigned int line_number;
-	stack_t *head; /* NEEDS TO BE FREE */
-	instruction_t *code;
-} file_t;
+	char *buffer;
+	FILE *fd;
+	char *format;
+} variable_t;
 
-/* PROTOTYPES FOR ARMAGEDON */
+/*Global variable*/
+extern variable_t vars;
+variable_t vars;
 
-void (*code(char *opcode))(stack_t **stack, unsigned int line_number);
-void nop_cmd(stack_t **head, unsigned int line_number);
-void push_cmd(stack_t **head, unsigned int line_number);
-void pall_cmd(stack_t **head, unsigned int line_number);
-
-/* MEMORY MANAGEMENT */
-
-void global_free(void);
-
-#endif /* MONTY_INC_H */
+#endif /*_FILE_H_*/
